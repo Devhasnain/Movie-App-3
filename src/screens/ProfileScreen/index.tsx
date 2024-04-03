@@ -10,8 +10,7 @@ import { ProfileStackParamList } from "@/types/navigation";
 import { FavoriteMoviesContext } from "@/context/FavoriteMoviesContext";
 import { Movie } from "@/types/api";
 
-type Props = NativeStackScreenProps<ProfileStackParamList, "Profile">;
-
+type Props = any
 const ProfileScreen = ({ navigation }: Props) => {
   const favoriteContext = useContext(FavoriteMoviesContext)
 

@@ -1,43 +1,64 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-import { MainTabParamList } from "@/types/navigation";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HomeStack from "../HomeStack";
 import ExploreStack from "../ExploreStack";
 import ProfileStack from "../ProfileStack";
 import COLORS from "@/constants/colors";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "@/context/AuthContext";
+import { auth } from "@/firebase/firebase";
+import Login from "@/screens/Auth/Login";
+import SignUp from "@/screens/Auth/SignUp";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import MovieDetailScreen from "@/screens/MovieDetailScreen";
+import FullCastScreen from "@/screens/FullCastScreen";
 
-const Tab = createBottomTabNavigator<MainTabParamList>();
+const Stack = createNativeStackNavigator();
 
 const MainTab = () => {
+  const Auth = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      Auth?.setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <Tab.Navigator
+    <Stack.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarLabel: route.name.slice(0, -3),
-        tabBarStyle: { backgroundColor: COLORS.primary },
-        tabBarActiveTintColor: COLORS.secondary,
-        tabBarInactiveTintColor: COLORS.text,
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
-          if (route.name === "HomeTab") {
-            iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "ExploreTab") {
-            iconName = focused ? "compass" : "compass-outline";
-          } else if (route.name === "ProfileTab") {
-            iconName = focused ? "account" : "account-outline";
-          }
-
-          return <MaterialCommunityIcons name={iconName as any} size={size} color={color} />;
-        },
       })}
-      
     >
-      <Tab.Screen name="HomeTab" component={HomeStack} />
-      <Tab.Screen name="ExploreTab" component={ExploreStack} />
-      <Tab.Screen name="ProfileTab" component={ProfileStack} />
-    </Tab.Navigator>
+      {Auth?.user ? (
+        <>
+          <Stack.Screen name="HomeTab" component={HomeStack} />
+          <Stack.Screen name="MovieDetail" component={MovieDetailScreen} />
+          <Stack.Screen name="FullCast" component={FullCastScreen} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerShown: false,
+              animation: "slide_from_left",
+            }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+        </>
+      )}
+    </Stack.Navigator>
   );
 };
 

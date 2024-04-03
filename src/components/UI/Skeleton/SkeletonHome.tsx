@@ -18,7 +18,7 @@ const SkeletonHome = () => {
       }}
     >
       {/* hero section skeleton */}
-      <ContentLoader
+      {/* <ContentLoader
         speed={SPEED}
         width={Dimensions.get("window").width * 0.8}
         height={(Dimensions.get("window").width * 0.8 * 3) / 2}
@@ -34,7 +34,7 @@ const SkeletonHome = () => {
           height="100%"
           width="100%"
         />
-      </ContentLoader>
+      </ContentLoader> */}
 
       {/* horizontal list skeleton */}
       <ContentLoader

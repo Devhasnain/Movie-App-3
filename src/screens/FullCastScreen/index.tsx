@@ -13,10 +13,7 @@ import COLORS from "@/constants/colors";
 import SkeletonFullCast from "@/components/UI/Skeleton/SkeletonFullCast";
 import FetchingError from "@/components/UI/FetchingError";
 
-type Props = NativeStackScreenProps<
-  ExploreStackParamList | HomeStackParamList | ProfileStackParamList,
-  "FullCast"
->;
+type Props = any
 
 const FullCastScreen = ({ route }: Props) => {
   const id = route.params.id;

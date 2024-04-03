@@ -9,8 +9,7 @@ import { HomeStackParamList } from "@/types/navigation";
 import SkeletonHome from "@/components/UI/Skeleton/SkeletonHome";
 import { ScrollView } from "react-native";
 
-type Props = NativeStackScreenProps<HomeStackParamList, "Home">;
-
+type Props = any;
 const HomeScreen = ({ navigation }: Props) => {
   const { data: trendingMovies, isLoading: loadingTrending } = useApi(
     "fetchTrendingMovies"
@@ -28,28 +27,37 @@ const HomeScreen = ({ navigation }: Props) => {
     navigation.navigate("MovieDetail", { id: id });
   };
 
-  if (loadingTrending || loadingUpcoming || loadingPopular || loadingNowPlaying){
-    return <SkeletonHome />;
-  }
+  // if (
+  //   loadingTrending ||
+  //   loadingUpcoming ||
+  //   loadingPopular ||
+  //   loadingNowPlaying
+  // ) {
+  //   return<></>;
+  // }
 
-  if (
-    !trendingMovies ||
-    !upcomingMovies ||
-    !popularMovies ||
-    !nowPlayingMovies
-  ) {
-    return <FetchingError />;
-  }
+  // if (
+  //   !trendingMovies ||
+  //   !upcomingMovies ||
+  //   !popularMovies ||
+  //   !nowPlayingMovies
+  // ) {
+  //   return <FetchingError />;
+  // }
 
   return (
+
     <SafeAreaView
       style={{
         flex: 1,
-        paddingHorizontal: 12,
         marginBottom: 8,
       }}
     >
-      <ScrollView style={{flex: 1 }} contentContainerStyle={{alignItems: "center"}} >
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1 }}
+        contentContainerStyle={{ alignItems: "center" }}
+      >
         <HeroSection onPress={itemClickHandler} />
         <HorizontalList
           data={trendingMovies}

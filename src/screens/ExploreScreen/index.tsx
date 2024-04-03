@@ -12,8 +12,7 @@ import CategoryList from "@/components/explore-screen/CategoryList";
 import { ExploreStackParamList } from "@/types/navigation";
 import FetchingError from "@/components/UI/FetchingError";
 
-type Props = NativeStackScreenProps<ExploreStackParamList, "Explore">;
-
+type Props = any
 const ExploreScreen = ({ navigation }: Props) => {
   const [category, setCategory] = useState({ id: 28, name: "Action" });
   const { data: genres, error } = useApi("fetchCategories");

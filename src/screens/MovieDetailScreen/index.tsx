@@ -29,10 +29,7 @@ import { FavoriteMoviesContext } from "@/context/FavoriteMoviesContext";
 import SkeletonMovieDetail from "@/components/UI/Skeleton/SkeletonMovieDetail";
 import FetchingError from "@/components/UI/FetchingError";
 
-type Props = NativeStackScreenProps<
-  ExploreStackParamList | HomeStackParamList | ProfileStackParamList,
-  "MovieDetail"
->;
+type Props =any
 
 const MovieDetailScreen = ({ navigation, route }: Props) => {
   const id = route.params.id;
